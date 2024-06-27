@@ -1,0 +1,741 @@
+[
+    {
+        "id": "34d4c5517d1aed0c",
+        "type": "tab",
+        "label": "Flujo 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "02683afc8c7383b4",
+        "type": "mqtt in",
+        "z": "34d4c5517d1aed0c",
+        "name": "",
+        "topic": "Temperature",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "af81fbcc5e9b1fc8",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 210,
+        "y": 400,
+        "wires": [
+            [
+                "2ce5c3c751b0050a"
+            ]
+        ]
+    },
+    {
+        "id": "a9f1aa79969adb40",
+        "type": "aedes broker",
+        "z": "34d4c5517d1aed0c",
+        "name": "Germination-Chamber",
+        "mqtt_port": 1883,
+        "mqtt_ws_bind": "port",
+        "mqtt_ws_port": "",
+        "mqtt_ws_path": "",
+        "cert": "",
+        "key": "",
+        "certname": "",
+        "keyname": "",
+        "persistence_bind": "memory",
+        "dburl": "",
+        "usetls": false,
+        "x": 240,
+        "y": 60,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "d25496b2647bbabb",
+        "type": "mqtt in",
+        "z": "34d4c5517d1aed0c",
+        "name": "",
+        "topic": "Luminosity",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "af81fbcc5e9b1fc8",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 200,
+        "y": 460,
+        "wires": [
+            [
+                "b1eb7cea6e7d39ca"
+            ]
+        ]
+    },
+    {
+        "id": "633de23bd9657ecd",
+        "type": "mongodb3 in",
+        "z": "34d4c5517d1aed0c",
+        "service": "_ext_",
+        "configNode": "fafa3e16bc2b9c4a",
+        "name": "",
+        "collection": "Luminosity",
+        "operation": "insert",
+        "x": 640,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b1eb7cea6e7d39ca",
+        "type": "function",
+        "z": "34d4c5517d1aed0c",
+        "name": "function 1",
+        "func": "let payload = msg.payload;\n\n// Create the data object to save in MongoDB\nlet data = {\n    Topic: msg.topic,\n    Payload: payload,\n    Timestamp: new Date() // Add a timestamp field if needed\n};\n\n// Set the data object as the message payload\nmsg.payload = data;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 460,
+        "wires": [
+            [
+                "633de23bd9657ecd"
+            ]
+        ]
+    },
+    {
+        "id": "7ea2f28d30f26c41",
+        "type": "mongodb3 in",
+        "z": "34d4c5517d1aed0c",
+        "service": "_ext_",
+        "configNode": "fafa3e16bc2b9c4a",
+        "name": "",
+        "collection": "Temperature",
+        "operation": "insert",
+        "x": 640,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2ce5c3c751b0050a",
+        "type": "function",
+        "z": "34d4c5517d1aed0c",
+        "name": "function 2",
+        "func": "let payload = msg.payload;\n\n// Create the data object to save in MongoDB\nlet data = {\n    Topic: msg.topic,\n    Payload: payload,\n    Timestamp: new Date() // Add a timestamp field if needed\n};\n\n// Set the data object as the message payload\nmsg.payload = data;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 400,
+        "wires": [
+            [
+                "7ea2f28d30f26c41"
+            ]
+        ]
+    },
+    {
+        "id": "02c3e2275acc475a",
+        "type": "mqtt in",
+        "z": "34d4c5517d1aed0c",
+        "name": "",
+        "topic": "Humidity",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "af81fbcc5e9b1fc8",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 200,
+        "y": 520,
+        "wires": [
+            [
+                "b4704bac6e534291"
+            ]
+        ]
+    },
+    {
+        "id": "de43213d58cc1954",
+        "type": "mongodb3 in",
+        "z": "34d4c5517d1aed0c",
+        "service": "_ext_",
+        "configNode": "fafa3e16bc2b9c4a",
+        "name": "",
+        "collection": "Humidity",
+        "operation": "insert",
+        "x": 630,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b4704bac6e534291",
+        "type": "function",
+        "z": "34d4c5517d1aed0c",
+        "name": "function 3",
+        "func": "let payload = msg.payload;\n\n// Create the data object to save in MongoDB\nlet data = {\n    Topic: msg.topic,\n    Payload: payload,\n    Timestamp: new Date() // Add a timestamp field if needed\n};\n\n// Set the data object as the message payload\nmsg.payload = data;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 520,
+        "wires": [
+            [
+                "de43213d58cc1954"
+            ]
+        ]
+    },
+    {
+        "id": "97f10f89e41fc057",
+        "type": "inject",
+        "z": "34d4c5517d1aed0c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "30",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 200,
+        "wires": [
+            [
+                "2ff271920230349c",
+                "234e2843b3f9ae82",
+                "cfcf5e97d4938e24"
+            ]
+        ]
+    },
+    {
+        "id": "2ff271920230349c",
+        "type": "function",
+        "z": "34d4c5517d1aed0c",
+        "name": "temp",
+        "func": "// Find query argument\nconst query = {};\n\n// Find option argument\nconst options = {\n    sort: { timestamp: -1 }, // Sort by timestamp in descending order\n    limit: 1 // Limit to only the latest record\n};\n\n// Payload for mongodb3 node\nmsg.payload = [query, options];\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 140,
+        "wires": [
+            [
+                "f61a8b59cc905cf7"
+            ]
+        ]
+    },
+    {
+        "id": "f61a8b59cc905cf7",
+        "type": "mongodb4",
+        "z": "34d4c5517d1aed0c",
+        "clientNode": "2d1c9eeb580d1657",
+        "mode": "collection",
+        "collection": "Temperature",
+        "operation": "find",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "server",
+        "x": 570,
+        "y": 140,
+        "wires": [
+            [
+                "644cb5120f59de31"
+            ]
+        ]
+    },
+    {
+        "id": "234e2843b3f9ae82",
+        "type": "function",
+        "z": "34d4c5517d1aed0c",
+        "name": "Humi",
+        "func": "// Find query argument\nconst query = {};\n\n// Find option argument\nconst options = {\n    sort: { timestamp: -1 }, // Sort by timestamp in descending order\n    limit: 1 // Limit to only the latest record\n};\n\n// Payload for mongodb3 node\nmsg.payload = [query, options];\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 200,
+        "wires": [
+            [
+                "9afd28e264a97086"
+            ]
+        ]
+    },
+    {
+        "id": "9afd28e264a97086",
+        "type": "mongodb4",
+        "z": "34d4c5517d1aed0c",
+        "clientNode": "2d1c9eeb580d1657",
+        "mode": "collection",
+        "collection": "Humidity",
+        "operation": "find",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "server",
+        "x": 570,
+        "y": 200,
+        "wires": [
+            [
+                "c70ff71d505704da"
+            ]
+        ]
+    },
+    {
+        "id": "cfcf5e97d4938e24",
+        "type": "function",
+        "z": "34d4c5517d1aed0c",
+        "name": "Params",
+        "func": "// Find query argument\nconst query = {};\n\n// Find option argument\nconst options = {\n    sort: { timestamp: -1 }, // Sort by timestamp in descending order\n    limit: 1 // Limit to only the latest record\n};\n\n// Payload for mongodb3 node\nmsg.payload = [query, options];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 280,
+        "wires": [
+            [
+                "89912cb697272588"
+            ]
+        ]
+    },
+    {
+        "id": "89912cb697272588",
+        "type": "mongodb4",
+        "z": "34d4c5517d1aed0c",
+        "clientNode": "2d1c9eeb580d1657",
+        "mode": "collection",
+        "collection": "Parameters",
+        "operation": "find",
+        "output": "toArray",
+        "maxTimeMS": "0",
+        "handleDocId": false,
+        "name": "server",
+        "x": 570,
+        "y": 280,
+        "wires": [
+            [
+                "29f9c2f63a6cbb94",
+                "c351ab21512b9f10",
+                "b634aca8db78b7cd"
+            ]
+        ]
+    },
+    {
+        "id": "644cb5120f59de31",
+        "type": "function",
+        "z": "34d4c5517d1aed0c",
+        "name": "function 8",
+        "func": "\nif (msg.payload && msg.payload.length > 0) {\n    let latestTemperature = msg.payload[0].Payload;\n\n    msg.temperature = latestTemperature;\n} \nelse {\n    node.warn(\"No temperature data found\");\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 100,
+        "wires": [
+            [
+                "fb2a7fcfa678af61"
+            ]
+        ]
+    },
+    {
+        "id": "29f9c2f63a6cbb94",
+        "type": "function",
+        "z": "34d4c5517d1aed0c",
+        "name": "function 9",
+        "func": "\nif (msg.payload && msg.payload.length > 0) {\n    let maxTemp = msg.payload[0].MaxTemperature;\n    let minTemp = msg.payload[0].MinTemperature;\n\n    msg.maxTemp = maxTemp;\n    msg.minTemp = minTemp;\n} \nelse {\n    node.warn(\"No temperature data found\");\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 140,
+        "wires": [
+            [
+                "fb2a7fcfa678af61"
+            ]
+        ]
+    },
+    {
+        "id": "fb2a7fcfa678af61",
+        "type": "function",
+        "z": "34d4c5517d1aed0c",
+        "name": "function 10",
+        "func": "// Get the latest values from the context\nlet latestTemp = context.get('latestTemp') || NaN;\nlet maxTemp = context.get('maxTemp') || NaN;\nlet minTemp = context.get('minTemp') || NaN;\n\n// Check if the incoming message has temperature data\nif (msg.temperature !== undefined) {\n    latestTemp = Number(msg.temperature);\n    context.set('latestTemp', latestTemp);\n}\n\n// Check if the incoming message has max temperature data\nif (msg.maxTemp !== undefined) {\n    maxTemp = Number(msg.maxTemp);\n    context.set('maxTemp', maxTemp);\n}\n\n// Check if the incoming message has min temperature data\nif (msg.minTemp !== undefined) {\n    minTemp = Number(msg.minTemp);\n    context.set('minTemp', minTemp);\n}\n\n// Log the values to debug\nnode.warn(`latestTemp: ${latestTemp}, type: ${typeof latestTemp}`);\nnode.warn(`maxTemp: ${maxTemp}, type: ${typeof maxTemp}`);\nnode.warn(`minTemp: ${minTemp}, type: ${typeof minTemp}`);\n\nlet result;\n\n// Proceed only if all values are valid numbers\nif (!isNaN(latestTemp) && !isNaN(maxTemp) && !isNaN(minTemp)) {\n    if (latestTemp > maxTemp) {\n        result = 'HIGHTEMP';\n    } else if (latestTemp < minTemp) {\n        result = 'LOWTEMP';\n    } else {\n        result = 'NORMALTEMP';\n    }\n\n    // Log the result to debug\n    node.warn(`Result: ${result}`);\n\n    msg.payload = result;\n    msg.topic = \"commandTopic\";\n\n    return msg;\n} else {\n    node.warn('Waiting for valid data...');\n    return null; // Do not send any message if data is not valid\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 950,
+        "y": 120,
+        "wires": [
+            [
+                "2c1bbbc62ed2262a",
+                "887e3fb56c9ed75a"
+            ]
+        ]
+    },
+    {
+        "id": "2c1bbbc62ed2262a",
+        "type": "mqtt out",
+        "z": "34d4c5517d1aed0c",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "af81fbcc5e9b1fc8",
+        "x": 1120,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "c70ff71d505704da",
+        "type": "function",
+        "z": "34d4c5517d1aed0c",
+        "name": "function 11",
+        "func": "\nif (msg.payload && msg.payload.length > 0) {\n    let latestHumidity = msg.payload[0].Payload;\n\n    msg.humidity = latestHumidity;\n} \nelse {\n    node.warn(\"No humidity data found\");\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 200,
+        "wires": [
+            [
+                "4f4f60c3e761929b"
+            ]
+        ]
+    },
+    {
+        "id": "c351ab21512b9f10",
+        "type": "function",
+        "z": "34d4c5517d1aed0c",
+        "name": "function 12",
+        "func": "\nif (msg.payload && msg.payload.length > 0) {\n    let maxHum = msg.payload[0].MaxHumidity;\n    let minHum = msg.payload[0].MinHumidity;\n\n    msg.maxHum = maxHum;\n    msg.minHum = minHum;\n} \nelse {\n    node.warn(\"No Humidity data found\");\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 240,
+        "wires": [
+            [
+                "4f4f60c3e761929b"
+            ]
+        ]
+    },
+    {
+        "id": "4f4f60c3e761929b",
+        "type": "function",
+        "z": "34d4c5517d1aed0c",
+        "name": "function 13",
+        "func": "// Get the latest values from the context\nlet latestHum = context.get('latestHum') || NaN;\nlet maxHum = context.get('maxHum') || NaN;\nlet minHum = context.get('minHum') || NaN;\n\n// Check if the incoming message has humidity data\nif (msg.humidity !== undefined) {\n    latestHum = Number(msg.humidity);\n    context.set('latestHum', latestHum);\n}\n\n// Check if the incoming message has max humidity data\nif (msg.maxHum !== undefined) {\n    maxHum = Number(msg.maxHum);\n    context.set('maxHum', maxHum);\n}\n\n// Check if the incoming message has min humidity data\nif (msg.minHum !== undefined) {\n    minHum = Number(msg.minHum);\n    context.set('minHum', minHum);\n}\n\n// Log the values to debug\nnode.warn(`latestHum: ${latestHum}, type: ${typeof latestHum}`);\nnode.warn(`maxHum: ${maxHum}, type: ${typeof maxHum}`);\nnode.warn(`minHum: ${minHum}, type: ${typeof minHum}`);\n\nlet result;\n\n// Proceed only if all values are valid numbers\nif (!isNaN(latestHum) && !isNaN(maxHum) && !isNaN(minHum)) {\n    if (latestHum > maxHum) {\n        result = 'HIGHHUM';\n    } else if (latestHum < minHum) {\n        result = 'LOWHUM';\n    } else {\n        result = 'NORMALHUM';\n    }\n\n    // Log the result to debug\n    node.warn(`Result: ${result}`);\n\n    msg.payload = result;\n    msg.topic = \"commandTopic\";\n\n    return msg;\n} else {\n    node.warn('Waiting for valid data...');\n    return null; // Do not send any message if data is not valid\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 950,
+        "y": 220,
+        "wires": [
+            [
+                "17938fd17810a819",
+                "2f7bd3732d1cafbd"
+            ]
+        ]
+    },
+    {
+        "id": "17938fd17810a819",
+        "type": "mqtt out",
+        "z": "34d4c5517d1aed0c",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "af81fbcc5e9b1fc8",
+        "x": 1120,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "b634aca8db78b7cd",
+        "type": "function",
+        "z": "34d4c5517d1aed0c",
+        "name": "function 15",
+        "func": "\nif (msg.payload && msg.payload.length > 0) {\n    let lumHours = msg.payload[0].HoursLuminosity;\n\n    msg.lumHours = lumHours;\n} \nelse {\n    node.warn(\"No Luminosity data found\");\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 300,
+        "wires": [
+            [
+                "3da444715fdd0f99"
+            ]
+        ]
+    },
+    {
+        "id": "3da444715fdd0f99",
+        "type": "function",
+        "z": "34d4c5517d1aed0c",
+        "name": "function 16",
+        "func": "const requiredHours = msg.lumHours; // Adjust the field name if different\n\n// Get the current time\nconst now = new Date();\nconst currentHour = now.getHours();\n\n// Check if the current time is between 6 AM and 9 PM\nconst isWithinSchedule = currentHour >= 6 && currentHour < 18;\n\n// Determine the command\nlet command;\nif (isWithinSchedule && requiredHours > 0) {\n    command = \"LIGHTON\";\n} \nelse {\n    command = \"LIGHTOFF\";\n}\n\n// Prepare the message to send the command\nmsg.payload = command;\nmsg.topic = \"commandTopic\";\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 950,
+        "y": 300,
+        "wires": [
+            [
+                "521edcceb0b27c28",
+                "2c0ae280fe5b4cc5"
+            ]
+        ]
+    },
+    {
+        "id": "521edcceb0b27c28",
+        "type": "mqtt out",
+        "z": "34d4c5517d1aed0c",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "af81fbcc5e9b1fc8",
+        "x": 1110,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "887e3fb56c9ed75a",
+        "type": "debug",
+        "z": "34d4c5517d1aed0c",
+        "name": "debug 5",
+        "active": false,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1250,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "2f7bd3732d1cafbd",
+        "type": "debug",
+        "z": "34d4c5517d1aed0c",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1250,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "2c0ae280fe5b4cc5",
+        "type": "debug",
+        "z": "34d4c5517d1aed0c",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1250,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "c2e424f1c93ac0a1",
+        "type": "mqtt in",
+        "z": "34d4c5517d1aed0c",
+        "name": "",
+        "topic": "Relative",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "af81fbcc5e9b1fc8",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 200,
+        "y": 580,
+        "wires": [
+            [
+                "f2f7a3e04e9e70a6"
+            ]
+        ]
+    },
+    {
+        "id": "69fad9d72e43fce1",
+        "type": "mongodb3 in",
+        "z": "34d4c5517d1aed0c",
+        "service": "_ext_",
+        "configNode": "fafa3e16bc2b9c4a",
+        "name": "",
+        "collection": "Relative",
+        "operation": "insert",
+        "x": 630,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f2f7a3e04e9e70a6",
+        "type": "function",
+        "z": "34d4c5517d1aed0c",
+        "name": "function 17",
+        "func": "let payload = msg.payload;\n\n// Create the data object to save in MongoDB\nlet data = {\n    Topic: msg.topic,\n    Payload: payload,\n    Timestamp: new Date() // Add a timestamp field if needed\n};\n\n// Set the data object as the message payload\nmsg.payload = data;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 580,
+        "wires": [
+            [
+                "69fad9d72e43fce1"
+            ]
+        ]
+    },
+    {
+        "id": "af81fbcc5e9b1fc8",
+        "type": "mqtt-broker",
+        "name": "germination-chamber",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "fafa3e16bc2b9c4a",
+        "type": "mongodb3",
+        "uri": "mongodb+srv://xa25alex:rvmrHIvYw66gl1W8@tomatos.iyzmmak.mongodb.net/?retryWrites=true&w=majority&appName=tomatos",
+        "name": "database",
+        "options": "",
+        "parallelism": "-1"
+    },
+    {
+        "id": "2d1c9eeb580d1657",
+        "type": "mongodb4-client",
+        "name": "",
+        "protocol": "mongodb",
+        "hostname": "",
+        "port": "",
+        "dbName": "test",
+        "appName": "",
+        "authSource": "",
+        "authMechanism": "DEFAULT",
+        "tls": false,
+        "tlsCAFile": "",
+        "tlsCertificateKeyFile": "",
+        "tlsInsecure": false,
+        "connectTimeoutMS": "30000",
+        "socketTimeoutMS": "0",
+        "minPoolSize": "0",
+        "maxPoolSize": "100",
+        "maxIdleTimeMS": "0",
+        "uri": "mongodb+srv://xa25alex:rvmrHIvYw66gl1W8@tomatos.iyzmmak.mongodb.net/?retryWrites=true&w=majority&appName=tomatos",
+        "advanced": "{}",
+        "uriTabActive": "tab-uri-advanced"
+    }
+]
